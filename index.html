@@ -54,6 +54,21 @@ img{max-width:100%}
 
 #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:80;background:linear-gradient(90deg,var(--gold-dim),var(--gold-bright));box-shadow:0 0 10px rgba(154,115,39,.5)}
 #spot{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(420px circle at 50% 30%,rgba(255,251,238,.5),transparent 62%);transition:background .12s;mix-blend-mode:soft-light}
+/* paged views */
+.view{display:none}
+.view.active{display:block;animation:viewin .6s cubic-bezier(.16,.9,.3,1)}
+@keyframes viewin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+body.has-pager{padding-bottom:66px}
+.pager{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;justify-content:space-between;align-items:center;gap:14px;padding:11px clamp(16px,4vw,44px);background:rgba(231,218,189,.93);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.pager.show{display:flex}
+.pager a{cursor:pointer;display:flex;flex-direction:column;gap:2px;max-width:42%;text-decoration:none}
+.pager a .lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.pager a .nm{font-family:var(--display);font-size:1.06rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.pager a.next{align-items:flex-end;text-align:right}
+.pager a.disabled{visibility:hidden;pointer-events:none}
+.pager .mid{font-family:var(--mono);font-size:.62rem;color:var(--ink-dim);letter-spacing:.12em;white-space:nowrap}
+@media(max-width:620px){.pager .mid{display:none}}
+nav .links a.on,nav .toc-btn.on{color:var(--rubric)}
 
 /* ---------- nav ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;
@@ -139,6 +154,15 @@ h1.title{font-family:var(--display);font-weight:600;line-height:.92;letter-spaci
 .block h3{font-family:var(--display);font-weight:600;font-size:1.55rem;color:var(--lapis);margin-bottom:.3em}
 .block p{color:var(--ink-2);max-width:46em}
 .block .qoshimcha{font-family:var(--mono);font-size:.78rem;color:var(--ink-dim);margin-top:10px;padding-left:14px;border-left:2px solid var(--gold)}
+.blk-list{list-style:none;margin-top:12px;display:grid;gap:9px}
+.blk-list li{position:relative;padding-left:24px;color:var(--ink-2);max-width:46em}
+.blk-list li::before{content:"";position:absolute;left:4px;top:.62em;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.blk-steps{margin-top:14px;display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.blk-steps .step{background:var(--panel);padding:14px 18px}
+.blk-steps .sn{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:1.18rem;color:var(--lapis)}
+.blk-steps .sn .dot{font-family:var(--mono);font-size:.7rem;color:var(--gold);border:1px solid var(--gold);border-radius:50%;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.blk-steps .si{display:block;color:var(--ink-2);margin-top:6px;padding-left:38px;font-size:.96rem}
+.blk-xulosa{margin-top:14px;padding:14px 18px;background:var(--panel-2);border-left:3px solid var(--lapis);color:var(--ink);font-style:italic}
 
 /* two-col prose */
 .cols2{columns:2;column-gap:48px}
@@ -296,6 +320,45 @@ h1.title{font-family:var(--display);font-weight:600;line-height:.92;letter-spaci
 .oqish:hover{background:#16304f}.oqish svg{width:14px;height:14px}
 .oqish.tashqi{background:transparent;color:var(--lapis);border:1px solid var(--lapis)}.oqish.tashqi:hover{background:rgba(31,59,94,.08)}
 .kutubxona-note{font-family:var(--mono);font-size:.78rem;color:var(--ink-dim);background:rgba(154,115,39,.08);border:1px dashed var(--line);padding:13px 16px;line-height:1.6;margin-top:6px}
+/* ziyouz-style library */
+.lib-search{position:relative;margin:14px 0 22px;max-width:540px}
+.lib-search input{width:100%;font-family:var(--body);font-size:1.05rem;padding:14px 16px 14px 44px;background:var(--panel);border:1px solid var(--line);color:var(--ink);outline:none;transition:border-color .2s}
+.lib-search input:focus{border-color:var(--gold)}
+.lib-search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink-dim)}
+.lib-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.lib-back{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--lapis);background:none;border:0;cursor:pointer;display:none;align-items:center;gap:8px}
+.lib-back.show{display:inline-flex}
+.lib-cnt{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);letter-spacing:.08em}
+.lib-head{font-family:var(--display);font-weight:600;font-size:1.55rem;color:var(--ink);margin:2px 0 14px;display:none}
+.lib-head.show{display:block}
+.lib-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:780px){.lib-cats{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.lib-cats{grid-template-columns:1fr}}
+.libcat{text-align:left;background:var(--panel);border:1px solid var(--line);padding:22px 20px;cursor:pointer;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .2s,box-shadow .2s;font-family:inherit}
+.libcat:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 14px 30px -20px rgba(60,44,20,.5)}
+.libcat .cc-ic{width:30px;height:30px;color:var(--gold)}
+.libcat .cc-n{font-family:var(--display);font-weight:600;font-size:1.24rem;color:var(--lapis);line-height:1.12}
+.libcat .cc-count{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rubric)}
+.lib-books{display:none;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:20px}
+.lib-books.show{display:grid}
+.lib-cats.hide{display:none}
+.bookcard{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--panel);transition:transform .2s,box-shadow .2s,border-color .2s}
+.bookcard:hover{transform:translateY(-3px);box-shadow:0 16px 34px -22px rgba(60,44,20,.5);border-color:var(--gold)}
+.bc-cover{position:relative;aspect-ratio:3/4;background:linear-gradient(150deg,#f4ead2,#e1d2af);border-bottom:1px solid var(--line);padding:18px 16px 16px 24px;overflow:hidden;display:flex;flex-direction:column}
+.bc-cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(var(--gold-bright),var(--gold-dim))}
+.bc-cover::after{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:rgba(122,94,34,.18)}
+.bc-type{font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rubric);margin-bottom:10px}
+.bc-title{font-family:var(--display);font-weight:600;font-size:1.1rem;line-height:1.16;color:var(--ink);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.bc-auth{margin-top:auto;padding-top:10px;font-style:italic;font-size:.8rem;color:var(--ink-dim)}
+.bc-foot{padding:12px 13px;display:flex;flex-direction:column;gap:9px}
+.bc-meta{font-family:var(--mono);font-size:.6rem;color:var(--ink-dim);letter-spacing:.03em}
+.bc-actions{display:flex;gap:7px}
+.bc-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--mono);font-size:.66rem;letter-spacing:.03em;padding:9px 8px;cursor:pointer;border:1px solid var(--lapis);background:var(--lapis);color:#f1e6cf;transition:background .2s}
+.bc-btn:hover{background:#16304f}
+.bc-btn svg{width:13px;height:13px;flex:0 0 auto}
+.bc-btn.ghost{background:transparent;color:var(--lapis)}
+.bc-btn.ghost:hover{background:rgba(31,59,94,.08)}
+.lib-empty{grid-column:1/-1;padding:34px;text-align:center;font-family:var(--mono);font-size:.82rem;color:var(--ink-dim)}
 
 /* viewer modal (read-only) */
 .viewer{display:none;position:fixed;inset:0;z-index:130;background:rgba(28,20,10,.94);flex-direction:column}
@@ -384,6 +447,12 @@ footer{border-top:1px solid var(--line);padding:40px clamp(20px,6vw,90px);displa
 <div class="viewer" id="viewer" aria-hidden="true">
   <div class="viewer-bar"><span class="t" id="viewerTitle"></span><span class="badge">Faqat o‘qish</span><button class="x" id="viewerClose">&times;</button></div>
   <div class="viewer-stage"><iframe id="viewerFrame" title="Manba" referrerpolicy="no-referrer"></iframe></div>
+</div>
+
+<div class="pager" id="pager">
+  <a class="prev" id="pagerPrev"><span class="lbl">← Oldingi bo‘lim</span><span class="nm"></span></a>
+  <span class="mid" id="pagerMid"></span>
+  <a class="next" id="pagerNext"><span class="lbl">Keyingi bo‘lim →</span><span class="nm"></span></a>
 </div>
 
 <footer>
@@ -982,7 +1051,15 @@ function renderHero(){
     <a class="scrollcue" href="#tadqiqot">Pastga<div class="ln"></div></a>
   </header>`;
 }
-function blocks(arr){return '<div class="blocks">'+arr.map(b=>`<div class="block reveal"><h3>${esc(b.sarlavha)}</h3><p>${esc(b.matn)}</p>${b.qoshimcha?`<p class="qoshimcha">${esc(b.qoshimcha)}</p>`:''}</div>`).join('')+'</div>';}
+function blocks(arr){return '<div class="blocks">'+arr.map(b=>{
+  let inner=`<h3>${esc(b.sarlavha)}</h3>`;
+  if(b.matn) inner+=`<p>${esc(b.matn)}</p>`;
+  if(b.royxat&&b.royxat.length) inner+=`<ul class="blk-list">${b.royxat.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+  if(b.bosqichlar&&b.bosqichlar.length) inner+=`<div class="blk-steps">${b.bosqichlar.map((s,i)=>`<div class="step"><span class="sn"><span class="dot">${String(i+1).padStart(2,'0')}</span>${esc(s.nom)}</span><span class="si">${esc(s.izoh)}</span></div>`).join('')}</div>`;
+  if(b.xulosa) inner+=`<p class="blk-xulosa">${esc(b.xulosa)}</p>`;
+  if(b.qoshimcha) inner+=`<p class="qoshimcha">${esc(b.qoshimcha)}</p>`;
+  return `<div class="block reveal">${inner}</div>`;
+}).join('')+'</div>';}
 
 function renderTadqiqot(){const o=DATA.oynalar.tadqiqot;return `<section class="oyna" id="tadqiqot">${opener(o.qism_belgisi)}<h2 class="reveal">${esc(o.sarlavha)}</h2><p class="intro dropcap reveal">${esc(o.kirish_matni)}</p>${blocks(o.bloklar)}</section>`;}
 
@@ -1066,20 +1143,33 @@ function renderLugat(){const L=DATA.lugat;
     <div class="lugat-grid" id="lugatGrid">${items}</div></section>`;}
 
 function renderManbalar(){const K=DATA.kutubxona, M=DATA.manbalar;
-  const BOOK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5A2.5 2.5 0 0 1 4 20.5z"/></svg>';
+  const BOOK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 6.5C10.5 5 8 4.4 5 4.4V18c3 0 5.5.6 7 2 1.5-1.4 4-2 7-2V4.4c-3 0-5.5.6-7 2.1z"/><path d="M12 6.5V20"/></svg>';
   const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   const EXT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>';
-  let cur=null, lib='';
-  K.elementlar.forEach(it=>{
-    if(it.bolim&&it.bolim!==cur){cur=it.bolim;lib+=`<div class="kutubxona-bolim">${esc(cur)}</div>`;}
-    const tashqi=it.manba==='havola';
-    const btn=tashqi?`<button class="oqish tashqi" data-slug="${esc(it.slug)}">${EXT} Manbaga o‘tish</button>`:`<button class="oqish" data-slug="${esc(it.slug)}">${EYE} O‘qish</button>`;
-    lib+=`<div class="mk reveal"><div class="ic">${BOOK}</div><div class="b"><span class="tur">${esc(it.tur)}</span><h4>${esc(it.sarlavha)}</h4>${it.muallif?`<div class="mu">${esc(it.muallif)}</div>`:''}<div class="iz">${esc(it.izoh)}</div><div class="ft">${btn}${it.meta?`<span class="meta">${esc(it.meta)}</span>`:''}</div></div></div>`;
-  });
-  let bib=M.guruhlar.map(g=>`<div class="bibgr"><h3>${esc(g.guruh)}</h3><ol>${g.royxat.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div>`).join('');
-  return `<section class="oyna" id="manbalar">${opener('Manbalar')}<h2 class="reveal">Manba va adabiyotlar</h2>
-    <h3 style="font-family:var(--display);font-weight:600;font-size:1.5rem;color:var(--lapis);margin:8px 0 .2em" class="reveal">${esc(K.sarlavha)}</h3>
-    <p class="kutubxona-kirish reveal">${esc(K.kirish)}</p>${lib}<p class="kutubxona-note reveal">${esc(K.izoh_qoshimcha)}</p>
+  const DL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>';
+  const SR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
+  const order=[],cnt={};
+  K.elementlar.forEach(e=>{const b=e.bolim||'Boshqa';if(!(b in cnt)){cnt[b]=0;order.push(b);}cnt[b]++;});
+  const catCards=order.map(b=>`<button class="libcat" data-cat="${esc(b)}"><span class="cc-ic">${BOOK}</span><span class="cc-n">${esc(b)}</span><span class="cc-count">${cnt[b]} ta manba</span></button>`).join('');
+  const cards=K.elementlar.map(it=>{
+    const onsite=it.manba==='pdf-file',ext=it.manba==='havola';
+    let actions;
+    if(ext){actions=`<button class="bc-btn ghost" data-act="link" data-slug="${esc(it.slug)}">${EXT} Manba</button>`;}
+    else{actions=`<button class="bc-btn" data-act="read" data-slug="${esc(it.slug)}">${EYE} O‘qish</button>`+(onsite?`<button class="bc-btn ghost" data-act="dl" data-slug="${esc(it.slug)}">${DL} Yuklab olish</button>`:'');}
+    const s=(it.sarlavha+' '+(it.muallif||'')+' '+(it.tur||'')+' '+(it.bolim||'')).toLowerCase();
+    return `<article class="bookcard" data-cat="${esc(it.bolim||'')}" data-s="${esc(s)}">
+      <div class="bc-cover"><div class="bc-type">${esc(it.tur||'')}</div><div class="bc-title">${esc(it.sarlavha)}</div>${it.muallif?`<div class="bc-auth">${esc(it.muallif)}</div>`:''}</div>
+      <div class="bc-foot">${it.meta?`<div class="bc-meta">${esc(it.meta)}</div>`:''}<div class="bc-actions">${actions}</div></div></article>`;
+  }).join('');
+  const bib=M.guruhlar.map(g=>`<div class="bibgr"><h3>${esc(g.guruh)}</h3><ol>${g.royxat.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div>`).join('');
+  return `<section class="oyna" id="manbalar">${opener('Kutubxona')}<h2 class="reveal">Kutubxona</h2>
+    <p class="intro reveal">${esc(K.kirish)}</p>
+    <div class="lib-search reveal">${SR}<input id="libInput" type="text" placeholder="Kutubxonadan qidiring — asar, muallif, tur…" aria-label="Kutubxonadan qidirish"></div>
+    <div class="lib-bar reveal"><button class="lib-back" id="libBack">← Barcha bo‘limlar</button><span class="lib-cnt" id="libCnt"></span></div>
+    <h3 class="lib-head" id="libHead"></h3>
+    <div class="lib-cats reveal" id="libCats">${catCards}</div>
+    <div class="lib-books" id="libBooks">${cards}</div>
+    <p class="kutubxona-note reveal" style="margin-top:28px">${esc(K.izoh_qoshimcha)} Saytdagi fayllar shaxsiy mutolaa va ilmiy maqsadlar uchun taqdim etiladi; mualliflik huquqi egalariga tegishli asarlardan foydalanishda manba ko‘rsatilishi shart.</p>
     <div class="divider-lbl">To‘liq bibliografiya</div><div class="bibsec">${bib}</div></section>`;}
 
 function renderAnnotatsiya(){
@@ -1126,7 +1216,7 @@ function roman(n){const m=[[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];let r='';
   // reveals + counters + timeline + stemma
   const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');if(en.target.classList.contains('st')){const n=en.target.querySelector('.num');if(n)count(n);}if(en.target.id==='tl'){const f=$('#tlfill');if(f)f.style.height='100%';}io.unobserve(en.target);}});},{threshold:.18});
   $$('.reveal,.st,.ev,#tl,#stemma').forEach(el=>io.observe(el));
-  function count(el){const to=+el.dataset.to,sep=el.dataset.sep,suf=el.dataset.suf||'';if(rm){el.textContent=fmt(to,sep)+suf;return;}let t0=null;const dur=1400;function step(ts){if(!t0)t0=ts;const p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=fmt(Math.round(to*e),sep)+(p>=1?suf:'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+  function count(el){if(el.dataset.counted)return;el.dataset.counted='1';const to=+el.dataset.to,sep=el.dataset.sep,suf=el.dataset.suf||'';if(rm){el.textContent=fmt(to,sep)+suf;return;}let t0=null;const dur=1400;function step(ts){if(!t0)t0=ts;const p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=fmt(Math.round(to*e),sep)+(p>=1?suf:'');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
   function fmt(v,sep){return sep?(''+v).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0'):''+v;}
 
   // TOC drawer
@@ -1174,10 +1264,56 @@ function roman(n){const m=[[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];let r='';
   function closeV(){viewer.classList.remove('on');viewer.setAttribute('aria-hidden','true');frame.src='about:blank';if(lastBlob){URL.revokeObjectURL(lastBlob);lastBlob=null;}document.body.style.overflow='';}
   document.addEventListener('click',e=>{const b=e.target.closest('.oqish');if(b)openV(findK(b.dataset.slug));});
   $('#viewerClose').onclick=closeV;viewer.addEventListener('contextmenu',e=>e.preventDefault());
+  // ---- library (ziyouz-style) ----
+  const libCats=$('#libCats'),libBooks=$('#libBooks'),libBack=$('#libBack'),libHead=$('#libHead'),libCnt=$('#libCnt'),libInput=$('#libInput');
+  if(libCats){
+    const bcards=$$('#libBooks .bookcard');
+    const ncats=$$('#libCats .libcat').length;
+    function landing(){libCats.classList.remove('hide');libBooks.classList.remove('show');libBack.classList.remove('show');libHead.classList.remove('show');if(libInput)libInput.value='';libCnt.textContent=ncats+' bo‘lim · '+bcards.length+' manba';}
+    function showBooks(fn,head){libCats.classList.add('hide');libBooks.classList.add('show');libBack.classList.add('show');let n=0;bcards.forEach(c=>{const ok=fn(c);c.style.display=ok?'':'none';if(ok)n++;});if(head){libHead.textContent=head;libHead.classList.add('show');}else libHead.classList.remove('show');libCnt.textContent=n+' ta manba';let e=libBooks.querySelector('.lib-empty');if(n===0){if(!e){e=document.createElement('div');e.className='lib-empty';e.textContent='Hech narsa topilmadi.';libBooks.appendChild(e);}}else if(e)e.remove();}
+    $$('#libCats .libcat').forEach(b=>b.addEventListener('click',()=>{const cat=b.dataset.cat;showBooks(c=>c.dataset.cat===cat,cat);window.scrollTo({top:0});}));
+    libBack.addEventListener('click',landing);
+    if(libInput)libInput.addEventListener('input',()=>{const q=libInput.value.trim().toLowerCase();if(!q){landing();return;}showBooks(c=>c.dataset.s.indexOf(q)>=0,'Qidiruv: “'+libInput.value.trim()+'”');});
+    libBooks.addEventListener('click',e=>{const btn=e.target.closest('.bc-btn');if(!btn)return;const it=findK(btn.dataset.slug);if(!it)return;const act=btn.dataset.act;
+      if(act==='read'||act==='link'){openV(it);}
+      else if(act==='dl'){const a=document.createElement('a');a.href=it.src;a.download=it.src.split('/').pop();document.body.appendChild(a);a.click();a.remove();}});
+    landing();
+  }
+
   // copy citation
   const cc=$('#copyCite');
   if(cc){cc.addEventListener('click',()=>{const t=$('#citeRef');const txt=(t.innerText||t.textContent).trim();const done=()=>{const o=cc.textContent;cc.textContent='Nusxa olindi ✓';setTimeout(()=>cc.textContent=o,1800);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(()=>{fallback(txt);done();});}else{fallback(txt);done();}});}
   function fallback(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
+
+  // ---- paged view navigation ----
+  const appEl=$('#app'), views={}, order=[];
+  Array.from(appEl.children).forEach(ch=>{if(ch.id){ch.classList.add('view');views[ch.id]=ch;order.push(ch.id);}});
+  const pager=$('#pager'),pPrev=$('#pagerPrev'),pNext=$('#pagerNext'),pMid=$('#pagerMid'),navLinks=$$('nav .links a');
+  function titleOf(id){if(!id||id==='bosh')return 'Bosh sahifa';const v=views[id],h=v&&v.querySelector('h2');return h?h.textContent.trim():id;}
+  function updatePager(id){const i=order.indexOf(id),prev=i>0?order[i-1]:null,next=i<order.length-1?order[i+1]:null;
+    if(prev){pPrev.classList.remove('disabled');pPrev.dataset.go=prev;pPrev.querySelector('.nm').textContent=titleOf(prev);}else{pPrev.classList.add('disabled');pPrev.removeAttribute('data-go');}
+    if(next){pNext.classList.remove('disabled');pNext.dataset.go=next;pNext.querySelector('.nm').textContent=titleOf(next);}else{pNext.classList.add('disabled');pNext.removeAttribute('data-go');}
+    pMid.textContent=(i+1)+' / '+order.length;}
+  function updateNav(id){navLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));}
+  function showView(id){
+    if(!views[id])id='bosh';
+    order.forEach(k=>views[k].classList.remove('active'));
+    const v=views[id];v.classList.add('active');window.scrollTo(0,0);
+    document.body.classList.toggle('has-pager',id!=='bosh');pager.classList.toggle('show',id!=='bosh');
+    v.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+    v.querySelectorAll('.st').forEach(st=>{st.classList.add('in');const n=st.querySelector('.num');if(n)count(n);});
+    const f=v.querySelector('#tlfill');if(f){f.style.height='0';requestAnimationFrame(()=>requestAnimationFrame(()=>{f.style.height='100%';}));}
+    const stm=v.querySelector('#stemma');if(stm)stm.classList.add('in');
+    updateNav(id);updatePager(id);
+    if(location.hash!=='#'+id)history.replaceState(null,'','#'+id);
+    onScroll();
+  }
+  document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute('href').slice(1);if(views[id]){e.preventDefault();if(drawer.classList.contains('on'))closeD();showView(id);}});
+  pPrev.addEventListener('click',()=>{if(pPrev.dataset.go)showView(pPrev.dataset.go);});
+  pNext.addEventListener('click',()=>{if(pNext.dataset.go)showView(pNext.dataset.go);});
+  addEventListener('keydown',e=>{if(e.target&&(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;if(e.key==='ArrowRight'&&pNext.dataset.go)showView(pNext.dataset.go);if(e.key==='ArrowLeft'&&pPrev.dataset.go)showView(pPrev.dataset.go);});
+  addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(views[id]&&!views[id].classList.contains('active'))showView(id);});
+  showView(location.hash.slice(1)||'bosh');
 })();
 </script>
 </body>
